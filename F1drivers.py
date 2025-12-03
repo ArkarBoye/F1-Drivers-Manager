@@ -1,7 +1,6 @@
 import csv
 import os
 import platform
-import sys 
 import time
 
 def clear_terminal():
