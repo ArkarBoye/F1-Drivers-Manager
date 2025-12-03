@@ -56,25 +56,9 @@ class F1Manager:
 
 #Save And Exit
     def save_and_exit(self):
-        print("\n" + "="*50)
-        print("CLOSING THE PROGRAM & SAVING DATA")
-        print("="*50)
-
-        total_steps = 30
         
-        for i in range(total_steps + 1):
-            time.sleep(0.02)
-            
-            percent = (i / total_steps) * 100
-            
-            filled_length = int(total_steps * i // total_steps)
-            bar = '█' * filled_length + '-' * (total_steps - filled_length)
-            
-            sys.stdout.write(f'\rProgress: |{bar}| {int(percent)}%')
-            sys.stdout.flush()
-        
-        print("\n\nData saved successfully.")
-        time.sleep(2) 
+        print("\nData saved successfully! Exiting in 3 seconds...")
+        time.sleep(3) 
         clear_terminal()
         print("Program Closed.")
                        
@@ -250,12 +234,20 @@ class F1Manager:
 #Driver Standing
     def driver_standing(self):
         print("\n--- TOP 5 DRIVER STANDING ---")
-        print("")
-        self.drivers.sort(key=lambda x: x["Current Season Points"], reverse=True)
-        top_5 = self.drivers[:5]
 
-        for rank, driver in enumerate(top_5, 1):
-            print(f"{rank}. #{driver['Racing Number']:<5} {driver['Name']} ({driver['Team']}) - {driver['Current Season Points']} Pts")
+        def get_points(driver):
+            return driver['Current Season Points']
+
+        self.drivers.sort(key=get_points, reverse=True)
+
+        count = 0
+        for d in self.drivers:
+            count = count + 1
+            
+            print(f"{count}. #{d['Racing Number']} {d['Name']} ({d['Team']}) - {d['Current Season Points']} Pts")
+
+            if count == 5:
+                break
 
 #Driver Manager Menu    
     def driver_manager_menu(self):
